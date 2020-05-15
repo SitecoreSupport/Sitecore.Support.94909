@@ -15,7 +15,7 @@ namespace Sitecore.Support
                 {
                     Web.Authentication.Ticket ticketByKey = Web.Authentication.Ticket.Parse(coreDb.PropertyStore.GetStringValue(ticket));
                     // remove the tickets for the same user name, but different ASP.Net session ID
-                    if (string.Equals(Context.GetUserName(), ticketByKey.UserName))
+                    if (!string.IsNullOrEmpty(ticketByKey.ClientId) && string.Equals(Context.GetUserName(), ticketByKey.UserName))
                     {
                         if (!string.Equals(HttpContext.Current.Session.SessionID, ticketByKey.ClientId))
                         {
